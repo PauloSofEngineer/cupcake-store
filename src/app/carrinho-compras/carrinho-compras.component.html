@@ -1,0 +1,71 @@
+<div class="custom-main-card">
+    <div class="mt-4">
+        <app-breadcrumb  [items]="[{ icon: 'pi pi-home', routerLink: '/'},
+                                   {label: 'Cardápio', routerLink: '/cardapio'},
+                                   {label: 'Carrinho Compras'}
+                                  ]"/>
+    </div>
+
+    <!-- PAGE HEADER  -->
+    <div class="flex align-items-center justify-content-between mt-5">
+        <div class="w-5">
+            <h1>Carrinho de Compras</h1>
+        </div>
+
+        <div class="w-4 flex justify-content-between align-items-center">
+            <span class="pi pi-shopping-cart" style="font-size: 1.5rem">
+                <p-badge [value]="badgeValue"></p-badge>
+            </span>
+        
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input disabled type="text" pInputText/>
+            </span>
+            <span class="pi pi-question-circle" style="font-size: 2rem"></span>
+        </div>
+    
+        <div class="w-2 align-items-end">        
+            <p-button label="Pagamento" 
+                      routerLink="/pagamento"
+                      (click)="abrirOpcoesPagamento()"></p-button>
+        </div>    
+        <div class="flex justify-content-end">        
+            <span class="pi pi-sign-out cursor-pointer" 
+                  routerLink="/home" 
+                  style="font-size: 2rem"
+                  pTooltip="Sair" ></span>
+        </div>    
+    </div>
+
+    <div class="mt-4">
+        
+        <p-dataView #dv [value]="productosPedido">
+            <ng-template let-product pTemplate="listItem">
+                <div class="col-12">
+                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+                        <img class="shadow-2 block xl:block mx-auto border-round" width="70" [src]="product.image" [alt]="product.name" />
+                        <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                                <div class="text-2xl font-semibold text-600">{{ product.name }}</div>
+                                <div class="flex align-items-center gap-3">
+                                    <span class="flex align-items-center gap-2">
+                                        <span>Quantidade</span>
+                                        <span class="font-semibold">{{ product.quantity }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                                <span class="text-2xl font-semibold">{{ (product.price * product.quantity) | currency:'BRL' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-dataView>
+        <div class="flex justify-content-end mt-5 text-2xl font-semibold gap-3">
+            <span class="font-semibold font-semibold text-600">TOTAL</span>
+            <span class="font-semibold font-semibold text-600">{{valorTotal  | currency:'BRL' }}</span>
+        </div>
+    </div>
+
+</div>
